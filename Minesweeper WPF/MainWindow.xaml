@@ -1,0 +1,70 @@
+﻿<Window x:Class="Minesweeper_WPF.MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Minesweeper_WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Width="340" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Button Background="{Binding Culoare_background}" FontFamily="Gothic" Content="{Binding Afisare}" Tag="{Binding}" IsHitTestVisible="{Binding Spart}" Foreground="{Binding Culoare_text}" PreviewMouseDown="Button_MouseDown"  BorderThickness="1" BorderBrush="Black" Width="50" Height="50" Margin="0" FontSize="20">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid  >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#2c3e50" Offset="1"/>
+                <GradientStop Color="#FF595959" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ItemsControl x:Name="ic" ItemTemplate="{DynamicResource DataTemplate_Level1}" Margin="10,110,10,10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button Content="Incearca din nou"  HorizontalAlignment="Center"  Background="#FF383838" Foreground="White" VerticalAlignment="Top" Width="200" FontSize="25" Margin="50,50,200,50" Click="Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Home"  HorizontalAlignment="Center"  Background="#FF383838" Foreground="White" VerticalAlignment="Top" Width="100" FontSize="25" Margin="250,50,50,50" Click="Button_Click_1">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="{Binding Stegulete,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" ContentStringFormat="Stegulete ramase: {0}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" FontSize="25"/>
+        <StackPanel x:Name="panel"  Visibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#2c3e50" Offset="1"/>
+                    <GradientStop Color="#FF595959" Offset="0"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Label Content="Randuri:" HorizontalAlignment="Center" Foreground="White" Margin="0,30,20,0" FontSize="25" ></Label>
+            <TextBox x:Name="Randuri" Width="60"  FontSize="15"  TextAlignment="Center" Height="20" PreviewTextInput="Txt_PreviewTextInput" HorizontalAlignment="Center" Margin="140,-35,0,0"></TextBox>
+            <Label Content="Coloane:" HorizontalAlignment="Center" Foreground="White" Margin="0,0,20,0"  FontSize="25" ></Label>
+            <TextBox x:Name="Coloane" Width="60" Height="20" TextAlignment="Center" FontSize="15"  PreviewTextInput="Txt_PreviewTextInput"  HorizontalAlignment="Center"    Margin="140,-35,0,0"></TextBox>
+            <Label Content="Bombe:" HorizontalAlignment="Center" Foreground="White" Margin="0,0,20,0"  VerticalAlignment="Center"  FontSize="25"></Label>
+            <TextBox x:Name="Bombe" Width="60" Height="20" TextAlignment="Center" FontSize="15" PreviewTextInput="Txt_PreviewTextInput" HorizontalAlignment="Center"    Margin="140,-35,0,0"></TextBox>
+            <Button Content="OK" Width="80" Height="30" HorizontalAlignment="Center" Margin="40,20,0,40" Click="Incepe_Jocu" FontSize="18"></Button>
+        </StackPanel>
+    </Grid>
+    
+</Window>
